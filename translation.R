@@ -27,6 +27,6 @@ for(i in 1:l)
   print(i)
 }
 colnames(translations)<- c("Gene_id","translation")
-write.table(x=translations,file="./trans.txt",quote =FALSE,sep="\n",eol = "\n", row.names = FALSE, col.names = FALSE)
+write.table(x=translations,file="./translations.txt",quote =FALSE,sep="\n",eol = "\n", row.names = FALSE, col.names = FALSE)
 
 
