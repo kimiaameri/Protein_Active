@@ -12,4 +12,4 @@ cd $WORK/independent2
 
 ../hmmer/hmmer-3.2.1/src/hmmsearch -A S.Areuse.sto Pfam-A.hmm trans.fasta 
 ../hmmer/hmmer-3.2.1/easel/miniapps/esl-reformat fasta S.Areuse.sto > S.Areuse.fa
-../hmmer/hmmer-3.2.1/easel/esl-sftech --index trans.fasta 
+../hmmer/hmmer-3.2.1/easel/miniapps/esl-sfetch --index trans.fasta 
