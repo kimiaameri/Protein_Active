@@ -7,9 +7,15 @@
 /hmmer/hmmer-3.2.1/easel/miniapps/
 make
 cd $WORK/independent2
-#../hmmer/hmmer-3.2.1/src/hmmsearch Pfam-A.hmm trans.txt > ./hmmerfile/s.Areuse.txt
+../hmmer/hmmer-3.2.1/src/hmmsearch Pfam-A.hmm trans.fasta > ./hmmerfile/s.Areuse.txt
+../hmmer/hmmer-3.2.1/src/hmmsearch --tblout ./hmmerfile/S.Areuse.tbl Pfam-A.hmm trans.fasta
 
 
-../hmmer/hmmer-3.2.1/src/hmmsearch -A S.Areuse.sto Pfam-A.hmm trans.fasta 
-../hmmer/hmmer-3.2.1/easel/miniapps/esl-reformat fasta S.Areuse.sto > S.Areuse.fa
+../hmmer/hmmer-3.2.1/src/hmmsearch -A ./hmmerfile/S.Areuse.sto Pfam-A.hmm trans.fasta 
+../hmmer/hmmer-3.2.1/easel/miniapps/esl-reformat fasta ./hmmerfile/S.Areuse.sto > ./hmmerfile/S.Areuse.fa
 ../hmmer/hmmer-3.2.1/easel/miniapps/esl-sfetch --index trans.fasta 
+
+../hmmer/hmmer-3.2.1/src/hmmsearch --domtblout ./hmmerfile/S.Areuse.dtbl Pfam-A.hmm trans.fasta
+cd hmmerfile
+#cat S.Areuse.dtbl |grep -v "^#" | awk '{print $1"/"$18"-"$19' |../../hmmer/hmmer-3.2.1/easel/miniapps/esl-sfetch --Cf ../trans.fasta - > S.areuse.hit.fa
+cat S.Areuse.dtbl |grep -v "^#" | awk '{print $1" "$18" "$19}'  > S.areuse.hit.fa
