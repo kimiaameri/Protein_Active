@@ -17,5 +17,5 @@ cd $WORK/independent2
 
 ../hmmer/hmmer-3.2.1/src/hmmsearch --domtblout ./hmmerfile/S.Areuse.dtbl Pfam-A.hmm trans.fasta
 cd hmmerfile
-#cat S.Areuse.dtbl |grep -v "^#" | awk '{print $1"/"$18"-"$19' |../../hmmer/hmmer-3.2.1/easel/miniapps/esl-sfetch --Cf ../trans.fasta - > S.areuse.hit.fa
-cat S.Areuse.dtbl |grep -v "^#" | awk '{print $1" "$18" "$19}'  > S.areuse.hit.fa
+cat S.Areuse.dtbl |grep -v "^#" | awk '{print $1" "$4" "$18" "$19}'  > S.areuse.hit.fa
+sort S.areuse.hit.fa > sort.hit.S.areus.csv
