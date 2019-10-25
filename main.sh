@@ -8,7 +8,7 @@
 export INTERSECTIONS_PATH="$WORK/Protein_Active-outputs/intersections/"
 export OUTPUT_PATH="$WORK/Protein_Active-outputs/"
 export GENOME_BED_PATH="$WORK/Protein_Active_reference_genome/"
-export SOURCE_DIR= "$WORK/Protein_Active/"
+export SOURCE_DIR="$WORK/Protein_Active/"
 
 
 Rscript mappinghmmerhit.R $SOURCE_DIR $GENOME_BED_PATH $INTERSECTIONS_PATH $OUTPUT_PATH
