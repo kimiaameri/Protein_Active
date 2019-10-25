@@ -6,18 +6,18 @@
 #SBATCH --output=bed.%J.out
 
 #------------------bedfile
-python3 GenomeBedPull.py $WORK/PA_reference_genome 
-export GENOME_BED_PATH="$WORK/PA_reference_genome/"
+python3 GenomeBedPull.py $WORK/Protein_Active_reference_genome 
+export GENOME_BED_PATH="$WORK/Protein_Active_reference_genome/"
 python3 pythonVcfbed.py ./InputFiles.csv $MINICONDA_HOME
 sh vcfBed.sh
 python3 pythonIntersections.py ./InputFiles.csv $GENOME_BED_PATH $MINICONDA_HOME
 sh mapVCF-to-Bed.sh
-export INTERSECTIONS_PATH="$WORK/PA-outputs/intersection/"
-export OUTPUT_PATH="$WORK/PA-outputs/"
+export INTERSECTIONS_PATH="$WORK/Protein_Active-outputs/intersections/"
+export OUTPUT_PATH="$WORK/Protein_Active-outputs/"
 
 
 cd $WORK/PA-outputs
-export SOURCE_DIR="$WORK/PA"
+export SOURCE_DIR="$WORK/Protein_Active"
 
 cd $WORK/PA_reference_genome
 cat  nctc8325.bed | tail -n+2 > nctc8325-1.bed 
