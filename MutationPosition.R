@@ -1,5 +1,5 @@
 argv <- commandArgs(trailingOnly = TRUE)
-MutationPosition<- function(reference_Genome,inputs,outputPath)
+MutationPosition<- function(reference_Genome,inputs,intersectionspath,outputPath)
 {
   length.genome<- nrow(reference_Genome)
   for (i in 1:length(inputs))
