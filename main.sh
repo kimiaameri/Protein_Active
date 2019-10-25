@@ -11,4 +11,4 @@ export GENOME_BED_PATH="$WORK/Protein_Active_reference_genome/"
 export $SOURCE_DIR= "$WORK/Protein_Active/"
 
 
-Rscript mappinghmmerhit.R $SOURCE_DIR $GENOME_BED_PATH $INTERSECTIONS_PATH 
+Rscript mappinghmmerhit.R $SOURCE_DIR $GENOME_BED_PATH $INTERSECTIONS_PATH $OUTPUT_PATH
