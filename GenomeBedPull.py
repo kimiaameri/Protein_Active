@@ -20,7 +20,7 @@ for id in records["IdList"]:
 f.close()
 
 def main():
-    outf = open(path + '/nctc8325.bed', 'w')https://github.com/kimiaameri/Protein_Active
+    outf = open(path + '/nctc8325.bed', 'w')
     header = """track name=vitVinGenes description="V. vinifera cpdna genes" itemRgb=On\n"""
     outf.write(header)
     for record in SeqIO.parse(open(accession+".gb", "r"), "genbank") :
