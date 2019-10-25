@@ -4,7 +4,7 @@ MutationPosition<- function(reference_Genome,inputs,outputPath)
   length.genome<- nrow(reference_Genome)
   for (i in 1:length(inputs))
   {
-    intersections <- read.table(paste(paste0(outputPath,"/intersections/"),inputs[i],sep=""),header=F,sep="\t",stringsAsFactors = F)
+    intersections <- read.table(paste(paste0(INTERSECTIONS_PATH,"intersections/"),inputs[i],sep=""),header=F,sep="\t",stringsAsFactors = F)
     length.intersection= nrow(intersections)
     variant.matrix<- matrix(NA, ncol=5, nrow=length.intersection)
     colnames(variant.matrix)<- c("Gene.Id","Variant.start","Variant.end","Gene.length","Chromosome.Length")
