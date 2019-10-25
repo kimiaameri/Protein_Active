@@ -15,7 +15,7 @@ source(paste0(sourcePath,"/MutationPosition.R"))
 #-----------------------------------------------------------------------#
 #hmmrHit <- as.matrix(read.table(paste0(outputPath,"hmmrfile/sort.hit.S.areus.csv"),header=F,sep=" ",stringsAsFactors = F))
 #length.hmmrHit <-  nrow(hmmrHit)
-#intersections<- list.files(paste0(intersectionspath,"/intersections/"))
+intersections<- list.files(paste0(intersectionspath,"/intersections/"))
 #Domain.length<- as.numeric(hmmrHit[,4]) - as.numeric(hmmrHit[,3])
 #hmmrHit<-cbind(hmmrHit,Domain.length)
 #colnames(hmmrHit)<- c("Gene.Id","Domain.Name","Start.DomPos","End.DomPos","Domain.Length")
