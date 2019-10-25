@@ -17,5 +17,5 @@ with open(outputFile,'w') as outFile:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             if count !=0:                          
-                outFile.write(f'{minicondaBin}bedtools intersect -a $WORK/SANVA-outputs/vcfbed/{row[0]}.bed -b {genomeBedpath}nctc8325.bed > $WORK/SANVA-outputs/intersection/{row[0]}.bed \n')
+                outFile.write(f'{minicondaBin}bedtools intersect -a $WORK/Protein_Active-outputs/vcfbed/{row[0]}.bed -b {genomeBedpath}nctc8325.bed > $WORK/Protein_Active-outputs/intersection/{row[0]}.bed \n')
             count =count + 1
