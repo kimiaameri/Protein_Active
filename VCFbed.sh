@@ -12,3 +12,18 @@ python3 pythonVcfbed.py ./InputFiles.csv $MINICONDA_HOME
 sh vcfBed.sh
 python3 pythonIntersections.py ./InputFiles.csv $GENOME_BED_PATH $MINICONDA_HOME
 sh mapVCF-to-Bed.sh
+export INTERSECTIONS_PATH="$WORK/PA-outputs/intersection/"
+export OUTPUT_PATH="$WORK/PA-outputs/"
+
+
+cd $WORK/PA-outputs
+export SOURCE_DIR="$WORK/PA"
+
+cd $WORK/PA_reference_genome
+cat  nctc8325.bed | tail -n+2 > nctc8325-1.bed 
+cd $WORK/PA/  
+Rscript mappinghmmerhit.R $SOURCE_DIR $GENOME_BED_PATH $INTERSECTIONS_PATH ./InputFiles.csv bigtable.csv tableWeight.csv 
+
+
+
+Rscript maincode.R $SOURCE_DIR $GENOME_BED_PATH $INTERSECTIONS_PATH ./InputFiles.csv bigtable.csv tableWeight.csv 
