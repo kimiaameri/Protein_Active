@@ -27,4 +27,4 @@ intersections<- list.files(paste0(intersectionspath,"/intersections/"))
 #                                                                                    #
 #------------------------------------------------------------------------------------#
 reference_Genome<- as.matrix(read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F))
-MutationPosition(reference_Genome,intersections,outputPath)
+MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
