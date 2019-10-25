@@ -1,10 +1,10 @@
 argv <- commandArgs(trailingOnly = TRUE)
-MutationPosition<- function(reference_Genome,inputs)
+MutationPosition<- function(reference_Genome,inputs,outputPath)
 {
   length.genome<- nrow(reference_Genome)
   for (i in 1:length(inputs))
   {
-    intersections <- read.table(paste("/intersections/",inputs[i],sep=""),header=F,sep="\t",stringsAsFactors = F)
+    intersections <- read.table(paste(paste0(outputPath,"/intersections/"),inputs[i],sep=""),header=F,sep="\t",stringsAsFactors = F)
     length.intersection= nrow(intersections)
     variant.matrix<- matrix(NA, ncol=5, nrow=length.intersection)
     colnames(variant.matrix)<- c("Gene.Id","Variant.start","Variant.end","Gene.length","Chromosome.Length")
@@ -24,6 +24,6 @@ MutationPosition<- function(reference_Genome,inputs)
     print(paste("i=",i))
     inputs[i]<- gsub(pattern = ".bed",replacement = "",inputs[i], perl = T)
     variant.matrix<- variant.matrix[complete.cases(variant.matrix),]
-    write.csv(x=variant.matrix,file = paste("/VariantPosition/",paste(inputs[i],".csv"),sep=""), row.names = FALSE)
+    write.csv(x=variant.matrix,file = paste(paste0(outputPath,"/VariantPosition/"),paste(inputs[i],".csv"),sep=""), row.names = FALSE)
   }
 }
