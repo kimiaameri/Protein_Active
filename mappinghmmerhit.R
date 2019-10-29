@@ -26,5 +26,5 @@ intersections<- list.files(intersectionspath)
 #                     find the mutation position in each isolate                      #
 #                                                                                    #
 #------------------------------------------------------------------------------------#
-reference_Genome<- as.matrix(read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F))
+reference_Genome<- read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F)
 MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
