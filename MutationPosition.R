@@ -24,6 +24,6 @@ MutationPosition<- function(reference_Genome,inputs,intersectionspath,outputPath
     print(paste("i=",i))
     inputs[i]<- gsub(pattern = ".bed",replacement = "",inputs[i], perl = T)
     variant.matrix<- variant.matrix[complete.cases(variant.matrix),]
-    write.csv(x=variant.matrix,file = paste(paste0(outputPath,"/VariantPosition/"),paste0(inputs[i],".csv"),sep=""), row.names = FALSE)
+    write.csv(x=variant.matrix,file = paste(paste0(outputPath,"/VariantPosition/"),paste0(inputs[i],".csv"),sep=""), row.names = FALSE, quote=FALSE )
   }
 }
