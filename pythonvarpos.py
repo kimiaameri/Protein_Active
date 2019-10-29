@@ -15,7 +15,7 @@ with open(outputFile,'w') as outFile:
     with open(inputFile) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-                outFile.write(f'reference_Genome <- as.matrix(read.table(paste0({GenomebedPath},"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F))\n')
+                outFile.write(f'reference_Genome <- as.matrix(read.table(paste0({genomeBedpath},"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F))\n')
                 outFile.write('length.genome<- nrow(reference_Genome) \n')
                 outFile.write(f'intersections <- read.table(paste({intersectionspath},{row[0]}.bed,sep=""),header=F,sep="\t",stringsAsFactors = F)\n')
                 outFile.write('length.intersection= nrow(intersections)\n')
