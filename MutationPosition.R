@@ -13,10 +13,10 @@ MutationPosition<- function(reference_Genome,inputs,intersectionspath,outputPath
          if (intersections[k,2] >= reference_Genome[j,2] & intersections[k,2] <= reference_Genome[j,3]) 
         { 
            variant.matrix[k,1] = as.character(reference_Genome [j,4])
-           z<-round(abs(as.numeric(intersections[k,2]) - as.numeric(reference_Genome [j,2]))/3)
+           z<-round(abs(intersections[k,2] - reference_Genome [j,2])/3)
            variant.matrix[k,2] = z
            variant.matrix[k,3] = z+1
-           m<-as.numeric(reference_Genome [j,3])-as.numeric(reference_Genome [j,2])
+           m<-reference_Genome [j,3])-reference_Genome [j,2]
            variant.matrix[k,4] = m
            variant.matrix[k,5] = round(m/3)
         }
