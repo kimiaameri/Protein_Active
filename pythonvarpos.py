@@ -1,13 +1,14 @@
 import csv
 import sys
 
-if len(sys.argv) < 4:
+if len(sys.argv) < 5:
     sys.stderr.write('No Input CSV file and genomebed\n')
     sys.exit(0)
     
 inputFile = sys.argv[1]
 genomeBedpath = sys.argv[2]
-outputPath = sys.argv[3]
+intersectionspath=sys.argv[3]
+outputPath = sys.argv[4]
 
 outputFile = "varpos.sh"
 with open(outputFile,'w') as outFile:
