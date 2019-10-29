@@ -32,7 +32,7 @@ with open(outputFile,'w') as outFile:
                 outFile.write('variant.matrix[k,4] = m\n')
                 outFile.write('variant.matrix[k,5] = round(m/3)\n')
                 outFile.write(' }\n')
-                outFile.write('variant.matrix<- variant.matrix[complete.cases(variant.matrix),]\n')')
+                outFile.write('variant.matrix<- variant.matrix[complete.cases(variant.matrix),]\n')
                 outFile.write( f'write.csv(x=variant.matrix,file = paste(paste0({outputPath},"/VariantPosition/"),paste0(row[0],".csv"),sep=""), row.names = FALSE)\n')
 
                 
