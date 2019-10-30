@@ -1,8 +1,8 @@
 argv <- commandArgs(trailingOnly = TRUE)
 
-geneDomain.vcf <- function(i, reference)
+geneDomain.vcf <- function(i, reference,variantPath)
 {
-    varinat <- read.table(paste0(outputPath,VariantPosition/varinats[i],sep=""),header=F,sep="\t",stringsAsFactors = F)
+    varinat <- read.table(paste0(variantPath,varinats[i],sep=""),header=F,sep="\t",stringsAsFactors = F)
     length.varinats= nrow(variant)
     length.domain= nrow(hmmrHit)
     var<-NULL 
