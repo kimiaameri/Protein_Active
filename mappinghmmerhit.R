@@ -3,8 +3,8 @@ sourcePath <- argv[1]
 GenomebedPath <- argv[2]
 intersectionspath <- argv[3]
 outputPath <- argv[4]
-bigtableFile <- argv[5]
-bigtableWeightFile<-argv[6]
+variantPath <- argv[5]
+Domain.Isolate<-argv[6]
 #---------------------------------------------------------------------------------------------------#
 #                 Please Change the Setwd to the location you download the folder                   #
 #---------------------------------------------------------------------------------------------------#
@@ -38,8 +38,9 @@ isolates<-gsub(pattern = ".bed",replacement = "",intersections, perl = T)
 rownames(Domain.Isolate) <- isolates
 colnames(Domain.Isolate) <- unique(hmmrHit[,2])
 Domain.Isolate.norm<-Domain.Isolate
+variants<- list.files(variantPath)
 for (i in 1:length(intersections))
 {
-  domain.per.isolate <- geneDomain.vcf(intersections[i],hmmrHit)
+  domain.per.isolate <- geneDomain.vcf(variants[i],hmmrHit, variantPath)
   Domain.Isolate[i,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) 
 }
