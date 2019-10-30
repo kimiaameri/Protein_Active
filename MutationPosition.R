@@ -16,7 +16,7 @@ MutationPosition<- function(reference_Genome,inputs,intersectionspath,outputPath
            z<-round(abs(intersections[k,2] - reference_Genome [j,2])/3)
            variant.matrix[k,2] = z
            variant.matrix[k,3] = z+1
-           m<-reference_Genome [j,3])-reference_Genome [j,2]
+           m<-reference_Genome [j,3]-reference_Genome [j,2]
            variant.matrix[k,4] = m
            variant.matrix[k,5] = round(m/3)
         }
