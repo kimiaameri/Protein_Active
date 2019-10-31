@@ -8,7 +8,7 @@ Domain.Isolate<-argv[6]
 #---------------------------------------------------------------------------------------------------#
 #                 Please Change the Setwd to the location you download the folder                   #
 #---------------------------------------------------------------------------------------------------#
-source("geneDomain.R")
+source(paste0(sourcePath,"geneDomain.R"))
 source(paste0(sourcePath,"/MutationPosition.R"))
 #-----------------------------------------------------------------------#
 #                             read hmmrfiles                             #
@@ -26,8 +26,8 @@ uniq.Domains<- length(unique(hmmrHit[,2]))
 #                     find the mutation position in each isolate                      #
 #                                                                                    #
 #------------------------------------------------------------------------------------#
-reference_Genome<- read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F)
-MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
+#reference_Genome<- read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F)
+#MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
 #------------------------------------------------------------------------------------#
 #                                                                                    #
 #                     find the mutaion domain   in each isolate                      #
