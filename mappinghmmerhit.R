@@ -44,3 +44,5 @@ for (i in 1:length(intersections))
   domain.per.isolate <- geneDomain.vcf(variants[i],hmmrHit, variantPath)
   Domain.Isolate[i,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) 
 }
+write.csv(x =Domain.Isolate,file=paste0(outputPath,paste0(inputs[i],".csv")), row.names = FALSE, quote=FALSE )
+
