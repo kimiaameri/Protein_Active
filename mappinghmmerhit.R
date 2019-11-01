@@ -9,7 +9,7 @@ Domain.Isolate<-argv[6]
 #                 Please Change the Setwd to the location you download the folder                   #
 #---------------------------------------------------------------------------------------------------#
 source(paste0(sourcePath,"geneDomain.R"))
-source(paste0(sourcePath,"/MutationPosition.R"))
+source(paste0(sourcePath,"MutationPosition.R"))
 #-----------------------------------------------------------------------#
 #                             read hmmrfiles                             #
 #-----------------------------------------------------------------------#
@@ -39,9 +39,9 @@ rownames(Domain.Isolate) <- isolates
 colnames(Domain.Isolate) <- unique(hmmrHit[,2])
 Domain.Isolate.norm<-Domain.Isolate
 variants<- list.files(variantPath)
-for (i in 1:length(intersections))
+for (i in 1:length(isolates))
 {
-  domain.per.isolate <- geneDomain.vcf(variants[i],hmmrHit, variantPath)
+  domain.per.isolate <- geneDomain(variants[i],hmmrHit, variantPath)
   Domain.Isolate[i,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) 
 }
 write.csv(x =Domain.Isolate,file=paste0(outputPath,paste0(inputs[i],".csv")), row.names = FALSE, quote=FALSE )
