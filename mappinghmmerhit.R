@@ -43,6 +43,10 @@ for (i in 1:length(isolates))
 {
   domain.per.isolate <- geneDomain(variants[i],hmmrHit, variantPath)
   Domain.Isolate[i,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) 
+  Domain.Isolate.norm[i,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) /as.numeric(hmmrHit[names(domain.per.isolate),5])
+
 }
 write.csv(x =Domain.Isolate,file=paste0(outputPath,paste0(inputs[i],".csv")), row.names = FALSE, quote=FALSE )
+write.csv(x =Domain.Isolate.norm,file=paste0(outputPath,paste0(inputs[i],"_norm.csv")), row.names = FALSE, quote=FALSE )
+
 
