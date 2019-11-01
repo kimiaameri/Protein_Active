@@ -3,8 +3,8 @@ argv <- commandArgs(trailingOnly = TRUE)
 geneDomain.vcf <- function(i, reference,variantPath)
 {
     varinat <- read.table(paste0(variantPath,i,sep=""),header=T,sep=",",stringsAsFactors = F)
-    length.varinats= nrow(variant)
-    length.domain= nrow(hmmrHit)
+    length.varinats<- nrow(variant)
+    length.domain<- nrow(hmmrHit)
     var<-NULL 
     for (j in 1 :length.domain)
     { 
