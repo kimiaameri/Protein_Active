@@ -10,4 +10,4 @@ export OUTPUT_PATH="$WORK/Protein_Active-outputs/"
 export GENOME_BED_PATH="$WORK/Protein_Active_reference_genome/"
 export SOURCE_DIR="$WORK/Protein_Active/"
 export VARIANT_PATH="$WORK/Protein_Active-outputs/VariantPosition/"
-Rscript mappinghmmerhit.R $SOURCE_DIR $GENOME_BED_PATH $INTERSECTIONS_PATH $OUTPUT_PATH $VARIANT_PATH $OUTPUT_PATH/Domain.Isolate.csv $OUTPUT_PATH/Domain.Isolate.norm.cdv
+Rscript mappinghmmerhit.R $SOURCE_DIR $GENOME_BED_PATH $INTERSECTIONS_PATH $OUTPUT_PATH $VARIANT_PATH $OUTPUT_PATH/Domain.Isolate.csv $OUTPUT_PATH/Domain.Isolate.norm.csv
