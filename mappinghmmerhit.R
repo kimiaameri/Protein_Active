@@ -5,6 +5,7 @@ intersectionspath <- argv[3]
 outputPath <- argv[4]
 variantPath <- argv[5]
 Domain.Isolate<-argv[6]
+Domain.Isolate.norm<- argv[7]
 #---------------------------------------------------------------------------------------------------#
 #                 Please Change the Setwd to the location you download the folder                   #
 #---------------------------------------------------------------------------------------------------#
@@ -26,8 +27,8 @@ uniq.Domains<- length(unique(hmmrHit[,2]))
 #                     find the mutation position in each isolate                      #
 #                                                                                    #
 #------------------------------------------------------------------------------------#
-#reference_Genome<- read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F)
-#MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
+reference_Genome<- read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F)
+MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
 #------------------------------------------------------------------------------------#
 #                                                                                    #
 #                     find the mutaion domain   in each isolate                      #
