@@ -28,21 +28,21 @@ uniq.Domains<- length(unique(hmmrHit[,2]))
 #                                                                                    #
 #------------------------------------------------------------------------------------#
 reference_Genome<- read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F)
-MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
+#MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
 #------------------------------------------------------------------------------------#
 #                                                                                    #
 #                     find the mutaion domain   in each isolate                      #
 #                                                                                    #
 #------------------------------------------------------------------------------------#
-Domain.Isolate <- matrix(0,nrow=length(intersections),ncol=uniq.Domains)
-isolates<-gsub(pattern = ".bed",replacement = "",intersections, perl = T)
+Domain.Isolate <- matrix(0,nrow=length(variantPath),ncol=uniq.Domains)
+isolates<-gsub(pattern = ".csv",replacement = "",variantPath, perl = T)
 rownames(Domain.Isolate) <- isolates
 colnames(Domain.Isolate) <- unique(hmmrHit[,2])
 Domain.Isolate.norm<-Domain.Isolate
 variants<- list.files(variantPath)
 for (i in 1:length(isolates))
 {
-  
+  print(i)
   domain.per.isolate <- geneDomain(variants[i],hmmrHit, variantPath)
   Domain.Isolate[i,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) 
   Domain.Isolate.norm[i,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) / as.numeric(hmmrHit[i,5])
