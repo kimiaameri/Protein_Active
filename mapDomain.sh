@@ -12,7 +12,7 @@ export SOURCE_DIR="$WORK/Protein_Active/"
 export VARIANT_PATH="$WORK/Protein_Active-outputs/VariantPosition/"
 export DOMAIN_ISOLATES="$WORK/Protein_Active-outputs/DomainIsolates/"
 
-Rscript HammrMapping.R $SOURCE_DIR $GENOME_BED_PATH $INTERSECTIONS_PATH $OUTPUT_PATH $VARIANT_PATH/$1 $DOMAIN_ISOLATES/$1 $DOMAIN_ISOLATES/$1.norm
+Rscript HmmrDomainMapping.R $SOURCE_DIR $GENOME_BED_PATH $INTERSECTIONS_PATH $OUTPUT_PATH $VARIANT_PATH/$1 $DOMAIN_ISOLATES/$1 $DOMAIN_ISOLATES/$1.norm
 
 
 
