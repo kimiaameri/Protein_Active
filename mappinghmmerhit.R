@@ -35,7 +35,7 @@ reference_Genome<- read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep
 #                                                                                    #
 #------------------------------------------------------------------------------------#
 variants<- list.files(variantPath)
-Domain.Isolate <- matrix(0,nrow=length(variantPath ),ncol=uniq.Domains)
+Domain.Isolate <- matrix(0,nrow=length(variants ),ncol=uniq.Domains)
 isolates<-gsub(pattern = ".csv",replacement = "",variants, perl = T)
 rownames(Domain.Isolate) <- isolates
 colnames(Domain.Isolate) <- unique(hmmrHit[,2])
