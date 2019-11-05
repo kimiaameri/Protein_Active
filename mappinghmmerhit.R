@@ -34,20 +34,21 @@ reference_Genome<- read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep
 #                     find the mutaion domain   in each isolate                      #
 #                                                                                    #
 #------------------------------------------------------------------------------------#
-Domain.Isolate <- matrix(0,nrow=length(variantPath),ncol=uniq.Domains)
-isolates<-gsub(pattern = ".csv",replacement = "",variantPath, perl = T)
+variants<- list.files(variantPath)
+Domain.Isolate <- matrix(0,nrow=length(variantPath ),ncol=uniq.Domains)
+isolates<-gsub(pattern = ".csv",replacement = "",variants, perl = T)
 rownames(Domain.Isolate) <- isolates
 colnames(Domain.Isolate) <- unique(hmmrHit[,2])
 Domain.Isolate.norm<-Domain.Isolate
 variants<- list.files(variantPath)
-for (i in 1:length(isolates))
+for (i in 1:length(variants))
 {
   print(i)
   domain.per.isolate <- geneDomain(variants[i],hmmrHit, variantPath)
   Domain.Isolate[i,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) 
   Domain.Isolate.norm[i,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) / as.numeric(hmmrHit[i,5])
 }
-write.csv(x =Domain.Isolate,file=paste0(outputPath,paste0(inputs[i],".csv")), row.names = FALSE, quote=FALSE )
-write.csv(x =Domain.Isolate.norm,file=paste0(outputPath,paste0(inputs[i],"_norm.csv")), row.names = FALSE, quote=FALSE )
+write.csv(x =Domain.Isolate,file=paste0(outputPath,"Domain.Isolate.csv"), row.names = FALSE, quote=FALSE )
+write.csv(x =Domain.Isolate.norm,file=paste0(outputPath,"Domain.Isolate.norm.csv")), row.names = FALSE, quote=FALSE )
 
 
