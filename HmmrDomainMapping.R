@@ -5,8 +5,7 @@ intersectionspath <- argv[3]
 outputPath <- argv[4]
 variantPath <- argv[5]
 DomainIsolates<-argv[6]
-Domain.Isolate<-argv[7]
-Domain.Isolate.norm<- argv[8]
+DomainIsolatesnorm<- argv[7]
 #---------------------------------------------------------------------------------------------------#
 #                 Please Change the Setwd to the location you download the folder                   #
 #---------------------------------------------------------------------------------------------------#
@@ -51,7 +50,7 @@ print(j)
 }
 domain.per.isolate <- table(var)
 Domain.Isolate[1,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) 
-Domain.Isolate.norm[1,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) / as.numeric(hmmrHit[i,5])
+Domain.Isolate.norm[1,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) / as.numeric(table(hmmrHit[,5]))
 write.csv(x =Domain.Isolate,file=DomainIsolates, row.names = FALSE, quote=FALSE )
-write.csv(x =Domain.Isolate.norm,file=Domain.Isolate.norm, row.names = FALSE, quote=FALSE )
+write.csv(x =Domain.Isolate.norm,file=DomainIsolatesnorm, row.names = FALSE, quote=FALSE )
 
