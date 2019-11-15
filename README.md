@@ -54,6 +54,18 @@ cat S.Areuse.dtbl |grep -v "^#" | awk '{print $1" "$4" "$18" "$19}'  > S.areuse.
 sort S.areuse.hit.fa > sort.hit.S.areus.csv
 ```
 ------------------------------------------------------------------------------------------------------
+#### read hmmrfiles 
+```R
+hmmrHit <- read.table(paste0(outputPath,"hmmrfile/sort.hit.S.areus.csv"),header=F,sep=" ",stringsAsFactors = F)
+length.hmmrHit <-  nrow(hmmrHit)
+intersections<- list.files(intersectionspath)
+Domain.length<- as.numeric(hmmrHit[,4]) - as.numeric(hmmrHit[,3])
+hmmrHit<-cbind(hmmrHit,Domain.length)
+colnames(hmmrHit)<- c("Gene.Id","Domain.Name","Start.DomPos","End.DomPos","Domain.Length")
+uniq.Domains<- length(unique(hmmrHit[,2]))
+```
+------------------------------------------------------------------------------------------------------
+
 ### find mutation position in each gene for isolates
 
 ```R
@@ -91,3 +103,37 @@ Domain.Isolate[1,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate)
 
 ```
 ------------------------------------------------------------------------------------------------------
+ ### Merge all domain isolates in one matrix 
+ ```R
+z=list.files("../Documents/DomainIsolates/",full.names = T)
+
+myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
+```
+---------------------------------------------------------------------------------------------------
+### prermuattion test
+ ```R
+   x<- t(myMergedData)
+  y<-c(rep(1,R),rep(0,S))
+  n = 1000
+  
+  ndist<- matrix(ncol=n, nrow=nrow(x))
+  set.seed(1)
+  
+  np.value<- rep(NA,nrow(x))
+  for (i in 1:nrow(x))
+  {
+    ndist<- replicate(n,diff(by(x[i,],sample(y,length(y),FALSE),mean)))
+    print(i)
+    np.value[i] <- sum(abs(ndist) > abs(diff(by(x[i,],y, mean))))/n
+  }
+  
+  np.adjusted <- p.adjust(np.value,method="fdr")
+  np.adjusted.significant <- which(np.adjusted < 0.0005)
+  sig.domains<-myMergedData[,np.adjusted]
+  ```
+ ---------------------------------------------------------------------------------------------------
+### Plot the line for average number of mutations for each group (resistanc, suseptible)
+```R
+plot(hist(ndist))
+abline(v=abs(diff(by(x[i,],y, mean)))+ ,col="blue")
+```
