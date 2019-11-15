@@ -22,6 +22,16 @@ sbatch SRA.sh
 #### For variant analysis we built the "snpvariant environment" for bioinformatic tools we usein this step:
 
 ## SANVA preprocessing step by step:
+```bash
+~/miniconda3/envs/snpvariant/bin/bwa mem $WORK/reference_genome/Staphylococcus_aureus_NCTC_8325/NCBI/2006-02-13/Sequence/BWAIndex/genome.fa $WORK/outputs/trimmomatic/SrA.Accession-R1.paired.fq $WORK/outputs/trimmomatic/SrA.Accession-R2.paired.fq >$WORK/outputs/samfiles/SrA.Accession.sam
+~/miniconda3/envs/snpvariant/bin/samtools view -bt $WORK/reference_genome/Staphylococcus_aureus_NCTC_8325/NCBI/2006-02-13/Sequence/BWAIndex/genome.fa $WORK/outputs/samfiles/SrA.Accession.sam >$WORK/outputs/bamfiles/SrA.Accession.bam
+~/miniconda3/envs/snpvariant/bin/samtools flagstat $WORK/outputs/bamfiles/SrA.Accession.bam > $WORK/outputs/flagsam/SrA.Accession.flagstat.log
+~/miniconda3/envs/snpvariant/bin/samtools sort $WORK/outputs/bamfiles/SrA.Accession.bam -O bam -o $WORK/outputs/sortsam/SrA.Accession.sorted.bam
+~/miniconda3/envs/snpvariant/bin/samtools stats $WORK/outputs/sortsam/SrA.Accession.sorted.bam >$WORK/outputs/stats/SrA.Accession.txt 
+~/miniconda3/envs/snpvariant/bin/samtools depth -a $WORK/outputs/sortsam/SrA.Accession.sorted.bam > $WORK/outputs/depth/SrA.Accession.depth
+~/miniconda3/envs/snpvariant/bin/picard MarkDuplicates I=$WORK/outputs/sortsam/SrA.Accession.sorted.bam O=$WORK/outputs/picard/SrA.Accession.picard.bam M=$WORK/outputs/picard/picardlog/SrA.Accession.picard.log
+~/miniconda3/envs/snpvariant/bin/freebayes -f $WORK/reference_genome/Staphylococcus_aureus_NCTC_8325/NCBI/2006-02-13/Sequence/WholeGenomeFa
+```
 * #### In the first step, low-quality reads were trimmed using Trimmomatic 0.38 that trims the reads with length less than 100 and will cut the adapter in reads, if there is any.
 * #### BWA-MEM 0.7.17 was used to align sequencing reads against the reference *S. aureus* .
 * #### [NCTC 8325](https://www.ncbi.nlm.nih.gov/nuccore/NC_007795.1 ) complete genome. BWA-MEM is introduced to perform local alignment more accurate and faster than other BWA algorithms for high-quality queries. 
