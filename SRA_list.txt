@@ -1,4 +1,4 @@
-* Resistance	* Suseptible
+*Resistance	*Suseptible
 SRR1177900	ERR029342
 SRR1177912	ERR029353
 SRR1177913	ERR029372
