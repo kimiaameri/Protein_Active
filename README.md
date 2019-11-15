@@ -34,5 +34,60 @@ sbatch SRA.sh
 ~/miniconda3/envs/snpvariant/bin/vcffilter -f "DP > $DEPTH" $WORK/outputs/freebayesoutput/SrA.Accession.vcf > $WORK/outputs/vcffilter-dp/SrA.Accession.vcf
 ~/miniconda3/envs/snpvariant/bin/bcftools view -Ob $WORK/outputs/vcffilter-dp/SrA.Accession.vcf > $WORK/outputs/bcfoutput/SrA.Accession.vcf.gz
 ~/miniconda3/envs/snpvariant/bin/bcftools index $WORK/outputs/bcfoutput/SrA.Accession.vcf.gz
+~/miniconda3/envs/snpvariant/bin/snpEff -v Staphylococcus_aureus_subsp_aureus_nctc_8325 $WORK/SNP-outputs/vcffilter-dp/SrA.Accession.vcf > $WORK/SNP-outputs/snpEff/SrA.Accession.ann.vcf 
 
 ```
+------------------------------------------------------------------------------------------------------
+## Hmmr Search
+#### Hmmr v.3.2.1
+```bash
+../hmmer/hmmer-3.2.1/src/hmmsearch Pfam-A.hmm trans.fasta > ./hmmerfile/s.Areuse.txt
+../hmmer/hmmer-3.2.1/src/hmmsearch --tblout ./hmmerfile/S.Areuse.tbl Pfam-A.hmm trans.fasta
+
+../hmmer/hmmer-3.2.1/src/hmmsearch -A ./hmmerfile/S.Areuse.sto Pfam-A.hmm trans.fasta 
+../hmmer/hmmer-3.2.1/easel/miniapps/esl-reformat fasta ./hmmerfile/S.Areuse.sto > ./hmmerfile/S.Areuse.fa
+../hmmer/hmmer-3.2.1/easel/miniapps/esl-sfetch --index trans.fasta 
+
+../hmmer/hmmer-3.2.1/src/hmmsearch --domtblout ./hmmerfile/S.Areuse.dtbl Pfam-A.hmm trans.fasta
+cd hmmerfile
+cat S.Areuse.dtbl |grep -v "^#" | awk '{print $1" "$4" "$18" "$19}'  > S.areuse.hit.fa
+sort S.areuse.hit.fa > sort.hit.S.areus.csv
+```
+------------------------------------------------------------------------------------------------------
+### find mutation position in each gene for isolates
+
+```R
+length.intersection= nrow(intersections)
+    variant.matrix<- matrix(NA, ncol=5, nrow=length.intersection)
+    colnames(variant.matrix)<- c("Gene.Id","Variant.start","Variant.end","Gene.length","Chromosome.Length")
+      for (k in 1:length.intersection) 
+        for (j in 1 :length.genome)
+         if (intersections[k,2] >= reference_Genome[j,2] & intersections[k,2] <= reference_Genome[j,3]) 
+        { 
+           variant.matrix[k,1] = as.character(reference_Genome [j,4])
+           z<-round(abs(intersections[k,2] - reference_Genome [j,2])/3)
+           variant.matrix[k,2] = z
+           variant.matrix[k,3] = z+1
+           m<-reference_Genome [j,3]-reference_Genome [j,2]
+          variant.matrix[k,4] = m
+         variant.matrix[k,5] = round(m/3)
+        }
+ 
+```
+------------------------------------------------------------------------------------------------------
+### find number of mutation in each domain for isolates
+
+```R
+for (j in 1 :length.domain)
+{ 
+  for (i in 1:length.varinats)
+
+    if (variant[i,1]== hmmrHit[j,1] & variant[i,2]>=as.numeric( hmmrHit[j,3]) & variant[i,3] <= as.numeric(hmmrHit[j,4]))
+      var =append(var,hmmrHit[j,2])
+print(j)
+}
+domain.per.isolate <- table(var)
+Domain.Isolate[1,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) 
+
+```
+------------------------------------------------------------------------------------------------------
