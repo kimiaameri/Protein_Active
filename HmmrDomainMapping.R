@@ -5,12 +5,11 @@ intersectionspath <- argv[3]
 outputPath <- argv[4]
 variantPath <- argv[5]
 DomainIsolates<-argv[6]
-DomainIsolatesnorm<- argv[7]
 #---------------------------------------------------------------------------------------------------#
 #                 Please Change the Setwd to the location you download the folder                   #
 #---------------------------------------------------------------------------------------------------#
 #source(paste0(sourcePath,"geneDomain.R"))
-source(paste0(sourcePath,"MutationPosition.R"))
+#source(paste0(sourcePath,"MutationPosition.R"))
 #-----------------------------------------------------------------------#
 #                             read hmmrfiles                             #
 #-----------------------------------------------------------------------#
@@ -28,29 +27,47 @@ uniq.Domains<- length(unique(hmmrHit[,2]))
 #                                                                                    #
 #------------------------------------------------------------------------------------#
 reference_Genome<- read.table(paste0(GenomebedPath,"/nctc8325.bed"),header=F,sep="\t",stringsAsFactors = F)
-#MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
+MutationPosition(reference_Genome,intersections,intersectionspath,outputPath)
+length.genome<- nrow(reference_Genome)
+intersections <- read.table(intersectionspath,header=F,sep="\t",stringsAsFactors = F)
+   length.intersection= nrow(intersections)
+    variant<- matrix(NA, ncol=5, nrow=length.intersection)
+    colnames(variant.matrix)<- c("Gene.Id","Variant.start","Variant.end","Gene.length","Chromosome.Length")
+      for (k in 1:length.intersection) 
+        for (j in 1 :length.genome)
+         if (intersections[k,2] >= reference_Genome[j,2] & intersections[k,2] <= reference_Genome[j,3]) 
+        { 
+           variant[k,1] = as.character(reference_Genome [j,4])
+           z<-round(abs(intersections[k,2] - reference_Genome [j,2])/3)
+           variant[k,2] = z
+           variant[k,3] = z+1
+           m<-reference_Genome [j,3]-reference_Genome [j,2]
+          variant[k,4] = m
+         variant[k,5] = round(m/3)
+        }
+inputs<- gsub(pattern = ".bed",replacement = ".csv",intersectionspath, perl = T)
+variant<- variant[complete.cases(variant),]
+write.csv(x=variant,file = paste0(variantPath ,"inputs")), row.names = FALSE, quote=FALSE )
 
 #-----------------------------------------------------------------------#
-#            calculate number of mutations per each gene                #
+#            calculate number of mutations per each Domain              #
 #-----------------------------------------------------------------------#
-variant.matrix<- read.table(variantPath,header=T,sep=",",stringsAsFactors = F)
+variant<- read.table(variantPath,header=T,sep=",",stringsAsFactors = F)
 
 Domain.Isolate <- matrix(0,nrow=1,ncol=uniq.Domains) 
 colnames(Domain.Isolate) <- unique(hmmrHit[,2])
-Domain.Isolate.norm<-Domain.Isolate
-length.varinats= nrow(variant.matrix)
+length.varinats= nrow(variant)
 length.domain= nrow(hmmrHit)
 var<-NULL 
 for (j in 1 :length.domain)
 { 
   for (i in 1:length.varinats)
-    if (variant.matrix[i,1]== hmmrHit[j,1] & variant.matrix[i,2]>= hmmrHit[j,3] & hmmrHit[j,4] <=variant.matrix[i,3]) 
+
+    if (variant[i,1]== hmmrHit[j,1] & variant[i,2]>=as.numeric( hmmrHit[j,3]) & variant[i,3] <= as.numeric(hmmrHit[j,4]))
       var =append(var,hmmrHit[j,2])
 print(j)
 }
 domain.per.isolate <- table(var)
 Domain.Isolate[1,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) 
-Domain.Isolate.norm[1,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate) / as.numeric(table(hmmrHit[,5]))
 write.csv(x =Domain.Isolate,file=DomainIsolates, row.names = FALSE, quote=FALSE )
-write.csv(x =Domain.Isolate.norm,file=DomainIsolatesnorm, row.names = FALSE, quote=FALSE )
 
