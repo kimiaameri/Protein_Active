@@ -3,7 +3,7 @@
 ##### for this purpose, first 363 Staphyloccuse Areuse isolates are downloaded from NCBI. The selected dataset has 174 resistant isolate and 189 suspetiple 
 -----------------------------------------------------------------
  ####
- list of SRA is availbel at ![Sra.Accession](https://github.com/kimiaameri/Protein_Active/blob/master/Inputs/SrA.Accession.txt)
+ list of SRA is availbel at ![SrA.Accession.txt](https://github.com/kimiaameri/Protein_Active/blob/master/Inputs/SrA.Accession.txt)
  - to downlaod data from NCBI the latset version of SRAtoolkit from Anaconda
  ## Download SRA from NCBI
 ```bash
