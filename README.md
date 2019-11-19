@@ -3,8 +3,8 @@
 ##### for this purpose, first 363 Staphyloccuse Areuse isolates are downloaded from NCBI. The selected dataset has 174 resistant isolate and 189 suspetiple 
 -----------------------------------------------------------------
  ####
- list of SRA is availbel at ![SrA_Accession.txt](https://github.com/kimiaameri/Protein_Active/blob/master/Inputs/SrA.Accession.txt)
- -- to downlaod fastq files from NCBI the latset version of SRAtoolkit is downloaded from Anaconda.
+ list of SRA is available at ![SrA_Accession.txt](https://github.com/kimiaameri/Protein_Active/blob/master/Inputs/SrA.Accession.txt)
+ - to downlaod fastq files from NCBI the latset version of SRAtoolkit is downloaded from Anaconda.
  ## Download SRA from NCBI
 ```bash
 for x in `cat SrA.Accession.txt`; do 
@@ -19,7 +19,7 @@ sbatch SRA.sh
 ####
 ----------------------------------------------------------------- 
 ## Pre-processing and variant analysis of the whole genome sequences. 
-#### For variant analysis we built the "snpvariant environment" for bioinformatic tools we usein this step:
+#### For variant analysis we built the "snpvariant environment" for bioinformatic tools we use for this step:
 
 ## preprocessing step by step:
 ```bash
@@ -37,6 +37,7 @@ sbatch SRA.sh
 ~/miniconda3/envs/snpvariant/bin/snpEff -v Staphylococcus_aureus_subsp_aureus_nctc_8325 $WORK/SNP-outputs/vcffilter-dp/SrA.Accession.vcf > $WORK/SNP-outputs/snpEff/SrA.Accession.ann.vcf 
 
 ```
+### This code is genereted by  ![Python code] (https://github.com/kimiaameri/Protein_Active/tree/master/Source) for each isolate 
 ------------------------------------------------------------------------------------------------------
 ## Hmmr Search
 #### Hmmr v.3.2.1
