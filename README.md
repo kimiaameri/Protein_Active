@@ -40,6 +40,25 @@ sbatch SRA.sh
 ### This code is genereted by ![pythonVariantAnalysis.py](https://github.com/kimiaameri/Protein_Active/tree/master/Source) Python code for each isolate 
 ------------------------------------------------------------------------------------------------------
 ## Hmmr Search
+##### For search in Hmmr database, we need the gene list in ***Staphylococcus*** ***Areues***. This list of genes are gereneretaed by ![translation.R](https://github.com/kimiaameri/Protein_Active/blob/master/Source/translation.R) R code.
+
+```R
+gb = readGenBank("./Inputs/sequence.gbk")
+tr <- transcripts(gb)
+proteinlist<-tr$gene_id
+l<- length(proteinlist)
+translations<- matrix(NA,ncol = 2,nrow = l)
+
+for(i in 1:l)
+{
+      seq<- as.character(proteins$translation[i,2])
+      translations[i,1]<- paste0(">",proteinlist[i])
+      translations[i,2]<- seq
+  print(i)
+}
+colnames(translations)<- c("Gene_id","translation")
+write.table(x=translations,file="./Outputs/translations.txt",quote =FALSE,sep="\n",eol = "\n", row.names = FALSE, col.names = FALSE)
+```
 #### Hmmr v.3.2.1
 ```bash
 ../hmmer/hmmer-3.2.1/src/hmmsearch Pfam-A.hmm trans.fasta > ./hmmerfile/s.Areuse.txt
