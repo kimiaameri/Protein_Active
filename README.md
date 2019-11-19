@@ -37,7 +37,7 @@ sbatch SRA.sh
 ~/miniconda3/envs/snpvariant/bin/snpEff -v Staphylococcus_aureus_subsp_aureus_nctc_8325 $WORK/SNP-outputs/vcffilter-dp/SrA.Accession.vcf > $WORK/SNP-outputs/snpEff/SrA.Accession.ann.vcf 
 
 ```
-### This code is genereted by  ![Python code] (https://github.com/kimiaameri/Protein_Active/tree/master/Source) for each isolate 
+### This code is genereted by ![pythonVariantAnalysis.py](https://github.com/kimiaameri/Protein_Active/tree/master/Source) Python code for each isolate 
 ------------------------------------------------------------------------------------------------------
 ## Hmmr Search
 #### Hmmr v.3.2.1
