@@ -7,7 +7,7 @@
  - to downlaod data from NCBI the latset version of SRAtoolkit from Anaconda
  ## Download SRA from NCBI
 ```bash
-for x in `cat SRA.txt`; do 
+for x in `cat SrA.Accession.txt`; do 
 fastq-dump --split-files $x ;  
 sleep 5;
 done
