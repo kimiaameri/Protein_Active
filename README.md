@@ -106,7 +106,7 @@ Domain.Isolate[1,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate)
 ------------------------------------------------------------------------------------------------------
  ### Merge all domain isolates in one matrix 
  ```R
-z=list.files("../Documents/DomainIsolates/",full.names = T)
+z=list.files("../Protein_Active-outputs/DomainIsolates/",full.names = T)
 
 myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
 ```
@@ -129,7 +129,7 @@ myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
   }
   
   np.adjusted <- p.adjust(np.value,method="fdr")
-  np.adjusted.significant <- which(np.adjusted < 0.0005)
+  np.adjusted.significant <- which(np.adjusted < 0.0000000005)
   sig.domains<-myMergedData[,np.adjusted]
   ```
  ---------------------------------------------------------------------------------------------------
