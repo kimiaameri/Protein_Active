@@ -40,7 +40,7 @@ sbatch SRA.sh
 ### This code is genereted by ![pythonVariantAnalysis.py](https://github.com/kimiaameri/Protein_Active/tree/master/Source) Python code for each isolate 
 ------------------------------------------------------------------------------------------------------
 ## Hmmr Search
-##### For search in Hmmr database, we need the translation reads of proteins in ***Staphylococcus*** ***Areues***. This list is gereneretaed by ![translation.R](https://github.com/kimiaameri/Protein_Active/blob/master/Source/translation.R) R code.
+##### For search in Hmmr database, we need the sequence reads of proteins in ***Staphylococcus*** ***Areues***. This list is gereneretaed by ![translation.R](https://github.com/kimiaameri/Protein_Active/blob/master/Source/translation.R) R code.
 
 ```R
 gb = readGenBank("./Inputs/sequence.gbk")
