@@ -3,10 +3,6 @@ sourcePath <- argv[1]
 outputPath<- argv[2]
 DomainIsolates <- argv[3]
 
-intersectionspath <- argv[3]
-inputFiles <- argv[4]
-bigtableFile <- argv[5]
-bigtableWeightFile<-argv[6]
 
 source(paste0(sourcePath,"/permutationTest.R"))
 
