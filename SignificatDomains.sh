@@ -13,3 +13,4 @@ export OUTPUT_PATH="$WORK/Protein_Active-outputs/"
 
 
 Rscript ./Source/significatDomains.R $SOURCE_PATH $DOMAIN_ISOLATES $OUTPUT_PATH/significantDomain.csv
+cp $OUTPUT_PATH/significantDomain.csv ./Outputs/significantDomain.csv
