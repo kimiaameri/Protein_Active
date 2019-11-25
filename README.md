@@ -134,7 +134,7 @@ myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
  ```R
   x<- t(myMergedData)
   y<-c(rep(1,R),rep(0,S))
-  n = 1000
+  n = 100000
   
   ndist<- matrix(ncol=n, nrow=nrow(x))
   set.seed(1)
@@ -155,5 +155,5 @@ myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
 ### Plot the line for average number of mutations for each group (resistanc, suseptible)
 ```R
 plot(hist(ndist))
-abline(v=abs(diff(by(x[i,],sample(y,length(y),FALSE), mean))),col="blue")
+abline(v=abs(diff(by(x[i,],y, mean))),col="blue")
 ```
