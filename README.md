@@ -74,7 +74,7 @@ cat S.Areuse.dtbl |grep -v "^#" | awk '{print $1" "$4" "$18" "$19}'  > S.areuse.
 sort S.areuse.hit.fa > sort.hit.S.areus.csv
 ```
 ------------------------------------------------------------------------------------------------------
-#### read hmmrfiles 
+#### Read hmmrfiles 
 ```R
 hmmrHit <- read.table(paste0(outputPath,"hmmrfile/sort.hit.S.areus.csv"),header=F,sep=" ",stringsAsFactors = F)
 length.hmmrHit <-  nrow(hmmrHit)
@@ -86,7 +86,7 @@ uniq.Domains<- length(unique(hmmrHit[,2]))
 ```
 ------------------------------------------------------------------------------------------------------
 
-### find mutation position in each gene for isolates
+### Find mutation position in each gene for isolates
 
 ```R
 length.intersection= nrow(intersections)
@@ -107,7 +107,7 @@ length.intersection= nrow(intersections)
  
 ```
 ------------------------------------------------------------------------------------------------------
-### find number of mutation in each domain for isolates
+### Find number of mutation in each domain for isolates
 
 ```R
 for (j in 1 :length.domain)
@@ -132,7 +132,7 @@ myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
 ---------------------------------------------------------------------------------------------------
 ### prermuattion test
  ```R
-   x<- t(myMergedData)
+  x<- t(myMergedData)
   y<-c(rep(1,R),rep(0,S))
   n = 1000
   
@@ -155,5 +155,5 @@ myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
 ### Plot the line for average number of mutations for each group (resistanc, suseptible)
 ```R
 plot(hist(ndist))
-abline(v=abs(diff(by(x[i,],y, mean)))+ ,col="blue")
+abline(v=abs(diff(by(x[i,],y, mean))),col="blue")
 ```
