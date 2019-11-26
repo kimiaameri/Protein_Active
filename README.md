@@ -134,7 +134,7 @@ myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
  ```R
   x<- t(myMergedData)
   y<-c(rep(1,R),rep(0,S))
-  n = 100000
+  n = 1000000
   
   ndist<- matrix(ncol=n, nrow=nrow(x))
   set.seed(1)
