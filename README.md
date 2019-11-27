@@ -147,7 +147,7 @@ myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
     np.value[i] <- sum(abs(ndist) > abs(diff(by(x[i,],y, mean))))/n
   }
   
-  np.adjusted <- p.adjust(np.value,method="fdr")
+  np.adjusted <- p.adjust(np.value,method="bonferroni")
   np.adjusted.significant <- which(np.adjusted < 0.0000000005)
   sig.domains<-myMergedData[,np.adjusted]
   ```
