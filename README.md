@@ -123,6 +123,23 @@ Domain.Isolate[1,names(domain.per.isolate)] <-  as.numeric(domain.per.isolate)
 
 ```
 ------------------------------------------------------------------------------------------------------
+### Find number of mutation outside each domain for isolates
+
+```R
+for (j in 1 :length.domain)
+{ 
+  for (i in 1:length.varinats)
+
+    if (variant[i,1]== hmmrHit[j,1] & variant[i,2]<=as.numeric( hmmrHit[j,3]) || 
+      variant[i,1]== hmmrHit[j,1] & variant[i,3] >= as.numeric(hmmrHit[j,4]))
+      var2 =append(var,hmmrHit[j,2])
+print(j)
+}
+out.domain.per.isolate <- table(var2)
+out.Domain.Isolate[1,names(out.domain.per.isolate)] <-  as.numeric(out.domain.per.isolate) 
+
+```
+------------------------------------------------------------------------------------------------------
  ### Merge all domain isolates in one matrix 
  ```R
 z=list.files("../Protein_Active-outputs/DomainIsolates/",full.names = T)
@@ -130,34 +147,40 @@ z=list.files("../Protein_Active-outputs/DomainIsolates/",full.names = T)
 myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
 ```
 ------------------------------------------------------------------------------------------------------
+ ## Unpaired Two-Samples Wilcoxon Test
  ### Find significant Domians using wilcox.test
+### Hypothesis:
+#### Null hypothesis: There will be no statistically significant differences on Suseptibel and Resistance group by number of mutations in domains.
+
+#### Alternative hypothesis: There will be statistically significant differences on Suseptibel and Resistance group by number of mutations in domains.
  ```R
- l.domain<- read.csv("./Inputs/mergewithlable.csv", header = TRUE)
+l.domain<- read.csv("./Inputs/mergewithlable.csv", header = TRUE)
 listdata<- l.domain[,1]
 rownames(l.domain)<- listdata
 l.domain<- l.domain[,-1]
 suseptible.group<- l.domain[which(l.domain$lable == "Susceptible-gentamicin"),]
 Resistant.group<- l.domain[which(l.domain$lable == "Resistant-gentamicin"),]
-p.value<- NULL
+p.value.wilcox<- NULL
 s.group<- suseptible.group[,-ncol(suseptible.group)]
 r.group<- Resistant.group[,-ncol(Resistant.group)]
 for (i in 1: ncol(s.group))
 {
   res<- wilcox.test(s.group[,i], r.group[,i])
-  p.value<- append(p.value,res$p.value)
-  #print(i)
+  p.value.wilcox<- append(p.value.wilcox,res$p.value)
+  print(i)
 }
-p.adj<- p.adjust(p.value,method = "bonferroni")
-length(which(p.adj1<0.005))
-head(which(p.adj<0.005))
-sig.index<- which(p.adj<0.005)
-significat.domians.wilcox<- l.domain[,sig.index]
+p.adj.wilcox<- p.adjust(p.value.wilcox,method = "bonferroni")
+length(which(p.adj.wilcox<0.005))
+sig.index.wilcox<- which(p.adj.wilcox<0.005)
+significat.domians.wilcox<- l.domain[,sig.index.wilcox]
  ```
+ ##### This test find 2416 domians that have significant differences on Suseptibel and Resistance group by number of mutations in domains (adjusted p-value 0.005)
+ ##### This test find 1450 domians that have significant differences on Suseptibel and Resistance group by number of mutations in domains (adjusted p-value 0.0000000005)
  ------------------------------------------------------------------------------------------------------
  ## Chi-Square Test of Independence
  ### Find significant Domians between Gropus using chi-squre test
  #### Use Chi-Square test to determine if there is a significant relationship between mutations in domians for Suseptial and Resistance group of isolates
- ### Hypothesis:
+### Hypothesis:
 #### Null hypothesis: Assumes that there is no association between number of mutations in domains for Suseptibel and Resistance group.
 
 #### Alternative hypothesis: Assumes that there is an association between number of mutations in domains for Suseptibel and Resistance group.
@@ -179,14 +202,14 @@ for (i in 1 : ncol(s.group))
   chi.pvalue<- append(chi.pvalue,chitest$p.value)
   print(i)
 }
-p.adj<- p.adjust(chi.pvalue,method = "bonferroni")
-length(which(p.adj<=0.000000000000000000005))
-chi.sig.index<- which(p.adj<0.000000000000000000005)
+p.adj.chitest<- p.adjust(chi.pvalue,method = "bonferroni")
+length(which(p.adj.chitest<=0.000000000000000000005))
+chi.sig.index<- which(p.adj.chitest<0.000000000000000000005)
 significat.domians.chitest<- l.domain[,chi.sig.index]
 ```
-
+##### This test find 1339 domians that have significant association between number of mutations in domains for Suseptibel and Resistance group(adjusted p-value 0.000000000000000000005).
 ---------------------------------------------------------------------------------------------------
-### prermuattion test
+### Permutation test
  ```R
   x<- t(myMergedData)
   y<-c(rep(1,R),rep(0,S))
