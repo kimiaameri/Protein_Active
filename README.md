@@ -129,6 +129,62 @@ z=list.files("../Protein_Active-outputs/DomainIsolates/",full.names = T)
 
 myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
 ```
+------------------------------------------------------------------------------------------------------
+ ### Find significant Domians using wilcox.test
+ ```R
+ l.domain<- read.csv("./Inputs/mergewithlable.csv", header = TRUE)
+listdata<- l.domain[,1]
+rownames(l.domain)<- listdata
+l.domain<- l.domain[,-1]
+suseptible.group<- l.domain[which(l.domain$lable == "Susceptible-gentamicin"),]
+Resistant.group<- l.domain[which(l.domain$lable == "Resistant-gentamicin"),]
+p.value<- NULL
+s.group<- suseptible.group[,-ncol(suseptible.group)]
+r.group<- Resistant.group[,-ncol(Resistant.group)]
+for (i in 1: ncol(s.group))
+{
+  res<- wilcox.test(s.group[,i], r.group[,i])
+  p.value<- append(p.value,res$p.value)
+  #print(i)
+}
+p.adj<- p.adjust(p.value,method = "bonferroni")
+length(which(p.adj1<0.005))
+head(which(p.adj<0.005))
+sig.index<- which(p.adj<0.005)
+significat.domians.wilcox<- l.domain[,sig.index]
+ ```
+ ------------------------------------------------------------------------------------------------------
+ ## Chi-Square Test of Independence
+ ### Find significant Domians between Gropus using chi-squre test
+ #### Use Chi-Square test to determine if there is a significant relationship between mutations in domians for Suseptial and Resistance group of isolates
+ ### Hypothesis:
+#### Null hypothesis: Assumes that there is no association between number of mutations in domains for Suseptibel and Resistance group.
+
+#### Alternative hypothesis: Assumes that there is an association between number of mutations in domains for Suseptibel and Resistance group.
+##### The contingency table is:
+ |   Domain X    |All other domains |
+ | ------------- | -------------|
+| # of mutations of domain x in Suseptible group  | # of mutations for all other domians in Suseptible group  |
+| # of mutations of domain x in Resistance group  |# of mutations for all other domians in Suseptible group |
+ ```R
+r.x<- colSums(r.group)
+s.x<- colSums(s.group)
+chi.pvalue<-NULL
+for (i in 1 : ncol(s.group))
+{
+  x<- matrix(c(r.x[i], s.x[i], sum(r.x[-i]), sum(s.x[-i])), ncol = 2)
+  chitest<- chisq.test(x, y = NULL, correct = TRUE,
+             p = rep(1/length(x), length(x)), rescale.p = FALSE,
+             simulate.p.value = FALSE, B = 2000)
+  chi.pvalue<- append(chi.pvalue,chitest$p.value)
+  print(i)
+}
+p.adj<- p.adjust(chi.pvalue,method = "bonferroni")
+length(which(p.adj<=0.000000000000000000005))
+chi.sig.index<- which(p.adj<0.000000000000000000005)
+significat.domians.chitest<- l.domain[,chi.sig.index]
+```
+
 ---------------------------------------------------------------------------------------------------
 ### prermuattion test
  ```R
