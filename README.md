@@ -149,5 +149,6 @@ myMergedData <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
 ------------------------------------------------------------------------------------------------------
 ### finding significant Domians:
 #### Chi Square Test of Independence
-![translation.R](https://github.com/kimiaameri/Protein_Active/wiki/Chi-Square-Test-of-Independence)
-#### Wilcox-Test
+![Chi Square](https://github.com/kimiaameri/Protein_Active/wiki/Chi-Square-Test-of-Independence)
+#### Unpaired Two Samples Wilcoxon Test
+![Wilcoxon Test](https://github.com/kimiaameri/Protein_Active/wiki/Unpaired-Two-Samples-Wilcoxon-Test)
