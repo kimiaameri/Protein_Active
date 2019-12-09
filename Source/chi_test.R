@@ -7,7 +7,7 @@ z=list.files("~/Dropbox/INDEPENDENT sTYDY 2/data/DomainIsolates/",full.names = T
 inside.Domain.Data <-  do.call(rbind,lapply(z,function(x) read.csv(x)))
 rname <- gsub(".*\\/","",z)
 rownames(inside.Domain.Data) <- gsub(".csv","",rname)
-inside.Domain.Data<- inside.Domain.Data[,colSums(inside.Domain.Data)!=0]
+#inside.Domain.Data<- inside.Domain.Data[,colSums(inside.Domain.Data)!=0]
 write.csv(inside.Domain.Data,"~/Dropbox/INDEPENDENT sTYDY 2/data/inside.domian.csv" , quote=FALSE)
 #-----------------------------------------------------------------------------------------#
 #                        find resistance type for each isolate                            #
@@ -23,11 +23,11 @@ write.csv(in.domain,"~/Dropbox/INDEPENDENT sTYDY 2/data/inside.domian.labeled.cs
 #-----------------------------------------------------------------------------------------#
 #             merge all mutations outside the domian for each isolate                     #
 #-----------------------------------------------------------------------------------------#
-z1=list.files("~/Dropbox/INDEPENDENT sTYDY 2/NotDomainIsolates/",full.names = T)
+z1=list.files("~/Dropbox/INDEPENDENT sTYDY 2/data/NotDomainIsolates/",full.names = T)
 outside.Domain.Data <-  do.call(rbind,lapply(z1,function(x) read.csv(x)))
 rname1 <- gsub(".*\\/","",z1)
 rownames(outside.Domain.Data) <- gsub(".csv","",rname1)
-outside.Domain.Data<- outside.Domain.Data[,colSums(outside.Domain.Data)!=0]
+#outside.Domain.Data<- outside.Domain.Data[,colSums(outside.Domain.Data)!=0]
 out.domain<-cbind(outside.Domain.Data, sample[,2])
 colnames(out.domain) <- c(colnames(out.domain[-ncol(out.domain)]),"lable")
 
@@ -49,8 +49,8 @@ r.out.group<- outside.Resistant.group[,-ncol(outside.Resistant.group)]
 #-----------------------------------------------------------------------------------------#
 in.r.x<- colSums(r.in.group)
 in.s.x<- colSums(s.in.group)
-out.r.x<- colSums(r.out.group)
-out.s.x<- colSums(s.out.group)
+out.r.x<- sum(colSums(r.out.group))
+out.s.x<- sum(colSums(s.out.group))
 chi.pvalue<-NULL
 chi.dif<-NULL
 for (i in 1 : ncol(s.in.group))
@@ -65,10 +65,27 @@ for (i in 1 : ncol(s.in.group))
   print(i)
 }
 p.adj.chitest<- p.adjust(chi.pvalue,method = "bonferroni")
-#domians.chitest<- rbind(domains, chi.dif)
+chi.matrix<- rbind(chi.dif,p.adj.chitest)
+domains.chitest<-t(chi.matrix)
+rownames(domains.chitest)<- colnames(in.domain[,-ncol(in.domain)])
 
 length(which(p.adj.chitest<=0.000000000000000000005))
 chi.sig.index<- which(p.adj.chitest<0.000000000000000000005)
-significat.domians.chitest<- in.domain[,chi.sig.index]
+significat.in.domians.chitest<- in.domain[,chi.sig.index]
+significat.out.domians.chitest<- out.domain[,chi.sig.index]
+significan.domians<- colnames(significat.in.domians.chitest)
 
-write.csv(significat.domians.chitest, "~/Dropbox/INDEPENDENT sTYDY 2/sig.chitest.csv")
+write.table(significan.domians, "~/Dropbox/INDEPENDENT sTYDY 2/data/significan.domians.txt", quote = FALSE, row.names = FALSE, col.names = FALSE)
+
+write.csv(significat.in.domians.chitest, "~/Dropbox/INDEPENDENT sTYDY 2/data/sig.in.domain.chitest.csv", quote = FALSE, row.names = FALSE)
+write.csv(significat.out.domians.chitest, "~/Dropbox/INDEPENDENT sTYDY 2/data/sig.out.domain.chitest.csv",quote = FALSE, row.names = FALSE)
+#----------------------------------------------------------------------------#
+#                       plot                                
+#----------------------------------------------------------------------------#
+domains.chitest<- domains.chitest[chi.sig.index,]
+domains.chitest.sort<- domains.chitest[order(domains.chitest[,1], decreasing = TRUE),]
+barplot(domains.chitest.sort[,1])
+
+cutoff<-which(domains.chitest.sort[,1]>1)
+significan.domians.cutoff<- domains.chitest.sort [cutoff,]
+significan.domians<- rownames(significan.domians.cutoff)
