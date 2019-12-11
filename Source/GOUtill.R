@@ -35,7 +35,6 @@ mapGo2PDB<- inner_join(mutate(mapGO2Pfam, PFAM=factor(PFAM, levels=combined)),
 
 mapGo2Pname<- unique(mapGo2PDB[,c("GO" ,"PFAM_Name")])
 pfamName<- hmmrhit[,2]
-goPfam<-NA
 mapGo2Pname<- mapGo2Pname[which(mapGo2Pname[,2] %in%pfamName ),]
 ann<- aggregate(mapGo2Pname[,1], by=list(mapGo2Pname[,2]), toString )
 write.table(ann,"~/Dropbox/INDEPENDENT sTYDY 2/domains/ann.domain.txt",sep="\t",col.names=F,row.names=F)  
