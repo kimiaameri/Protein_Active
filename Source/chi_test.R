@@ -1,6 +1,14 @@
 memory.limit(90000000)
 memory.size(90000000)
 #-----------------------------------------------------------------------------------------#
+#                         merge all genes in for each isolate                             #
+#-----------------------------------------------------------------------------------------#
+z.var=list.files("~/Dropbox/INDEPENDENT sTYDY 2/data/VariantPosition",full.names = T)
+variant.Data <-  do.call(rbind,lapply(z.var,function(x) {var<-read.csv(x)
+                                                            var.gene<- as.character(unique(var$Gene.Id )) }))
+mutated.genes<- unique(c(variant.Data))
+
+#-----------------------------------------------------------------------------------------#
 #                 merge all mutations in the domian for each isolate                      #
 #-----------------------------------------------------------------------------------------#
 z=list.files("~/Dropbox/INDEPENDENT sTYDY 2/data/DomainIsolates/",full.names = T)
@@ -84,7 +92,7 @@ write.csv(significat.out.domians.chitest, "~/Dropbox/INDEPENDENT sTYDY 2/data/si
 #----------------------------------------------------------------------------#
 domains.chitest<- domains.chitest[chi.sig.index,]
 domains.chitest.sort<- domains.chitest[order(domains.chitest[,1], decreasing = TRUE),]
-barplot(domains.chitest.sort[,1])
+p<-barplot(domains.chitest.sort[,1])
 
 cutoff<-which(domains.chitest.sort[,1]>1)
 significan.domians.cutoff<- domains.chitest.sort [cutoff,]
